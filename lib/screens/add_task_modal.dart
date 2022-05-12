@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AddTaskModal extends StatelessWidget {
+  final Function addTaskCallback;
+
+  AddTaskModal(this.addTaskCallback);
+
+  String? newTaskTitle;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,9 +25,16 @@ class AddTaskModal extends StatelessWidget {
           TextField(
             autofocus: true,
             textAlign: TextAlign.center,
+            onChanged: (newText) {
+              newTaskTitle = newText;
+            },
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              if (newTaskTitle != null) {
+                addTaskCallback(newTaskTitle);
+              }
+            },
             child: Text('Add'),
           )
         ],
