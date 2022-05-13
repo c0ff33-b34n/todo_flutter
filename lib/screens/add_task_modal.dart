@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/task_data.dart';
 
 class AddTaskModal extends StatelessWidget {
-  final Function addTaskCallback;
-
-  AddTaskModal(this.addTaskCallback);
-
   String? newTaskTitle;
 
   @override
@@ -32,7 +31,9 @@ class AddTaskModal extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               if (newTaskTitle != null) {
-                addTaskCallback(newTaskTitle);
+                Provider.of<TaskData>(context, listen: false)
+                    .addTask(newTaskTitle!);
+                Navigator.pop(context);
               }
             },
             child: Text('Add'),
